@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie-site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+</head>
+<style>
+    *{
+        font-family: 'Roboto Mono', monospace;
+    }
+    body{
+        background-color: whitesmoke;
+    }
+
+    #main{
+        display: flex;
+        width:95%;
+        height: 40px;
+        border: 2px solid black;
+        margin: auto;
+    }
+    #main>p{
+        font-size: 23px;
+        color:black;
+        margin: 2px;        
+    }
+    #main>p>span{
+        margin-left: 12px;
+    }
+    #main>input{
+       margin: 3px 2px 3px 400px;        
+    }
+    #container{
+        width:90%;
+        height: 900px;
+        border:2 px solid grey;
+        padding: 15px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3,30%);
+    }
+    img{
+        width:300px;
+        height: 450px;
+        background-size: contain;
+        margin: auto;
+    }
+    #container>div{
+        border:1px solid grey;
+        height: 600px;
+        margin-left:50px;        
+    }
+    #container>div>p{
+        margin-top:-8px;
+    }
+</style>
+<body>
+    <nav>
+        <div id="main">
+            <p id="navhead"><span>Home</span><span>Hollywood</span><span>Bollywood</span></p>
+            <input style=" width: 350px;" type="text" id="moviename" placeholder="Enter movie name here...">
+            <button style="margin: 3px; border: 2px solid black; background-color: whitesmoke;font-size: 18px;" onclick="showMovie()">Search</button>
+        </div>
+    </nav>
+    <div id="container">
+
+    </div>
+</body>
+</html>
+
+<script>
+
+let cont = document.getElementById("container");
+
+/*https://www.omdbapi.com/?i=tt3896198&apikey=beeb11ff*/
+    async function showMovie(){
+
+        let moviename = document.getElementById("moviename").value;
+        let res = await fetch(`https://www.omdbapi.com/?t=${moviename}&apikey=beeb11ff`);        
+
+        let data = await res.json();
+        
+        if(data.Response === 'True'){
+            movie(data);  
+            console.log(data);
+        }else{
+            cont.innerText="No items found! try different movie!!";            
+            console.log(data);
+        } 
+
+    }
+
+    
+
+    function movie(detail){
+      
+        cont.innerHTML=null;
+        
+        let div=document.createElement("div");
+        let name=document.createElement("p");
+        name.innerHTML=`<p>Title :- ${detail.Title}</p>`;
+
+        let img = document.createElement("img");
+        img.src=detail.Poster;
+        let imdb=document.createElement("p");
+        imdb.innerHTML=`<p>Imdb Rating :- ${detail.imdbRating}</p>`;
+
+        let country=document.createElement("p");
+        country.innerHTML=`<p>Country :- ${detail.Country}</p>`;
+
+        div.append(img,name,imdb,country);
+        cont.append(div);
+    }
+    
+</script>
