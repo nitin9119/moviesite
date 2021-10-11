@@ -44,19 +44,29 @@
         display: grid;
         grid-template-columns: repeat(3,30%);
     }
-    img{
+    #container>img{
         width:300px;
         height: 450px;
         background-size: contain;
         margin: auto;
     }
     #container>div{
-        border:1px solid grey;
+        /* border:1px solid grey; */
         height: 600px;
         margin-left:50px;        
     }
     #container>div>p{
         margin-top:-8px;
+    }
+    #notfound{
+        width:400px;
+        height: 500px;
+    }
+    #notfoud>img{
+        width:150px;
+        height:150px;
+        background-size: contain;
+        margin-left: 100px;
     }
 </style>
 <body>
@@ -89,8 +99,16 @@ let cont = document.getElementById("container");
             movie(data);  
             console.log(data);
         }else{
-            cont.innerText="No items found! try different movie!!";            
-            console.log(data);
+            // cont.innerText="No items found! try different movie!!";            
+            // console.log(data);
+            cont.innerHTML=null;
+            let dv=document.createElement("div");
+            dv.setAttribute("id","notfound")
+            let imag=document.createElement("img");
+            imag.src="https://www.vizion.com/wp-content/uploads/2018/09/shutterstock_479042983-636x344.jpg";
+
+            dv.append(imag);
+            ;cont.append(dv)
         } 
 
     }
