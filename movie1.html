@@ -126,13 +126,22 @@ let cont = document.getElementById("container");
         let img = document.createElement("img");
         img.src=detail.Poster;
         let imdb=document.createElement("p");
-        imdb.innerHTML=`<p>Imdb Rating :- ${detail.imdbRating}</p>`;
+        // imdb.innerHTML=`<p>Imdb Rating :- ${detail.imdbRating}</p>`;
+        if(detail.imdbRating >= '8.5'){
+            imdb.innerHTML=`<p>Imdb Rating :- ${detail.imdbRating} <span>Recommended</span></p>`
+        }else{
+            imdb.innerHTML=`<p>Imdb Rating :- ${detail.imdbRating} </p>`
+            console.log(typeof(detail.imdbRating))
+        }
 
         let country=document.createElement("p");
         country.innerHTML=`<p>Country :- ${detail.Country}</p>`;
 
         div.append(img,name,imdb,country);
         cont.append(div);
+
+
+
     }
     
 </script>
